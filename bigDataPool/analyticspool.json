@@ -16,6 +16,7 @@
 		"nodeSizeFamily": "MemoryOptimized",
 		"sparkVersion": "2.4",
 		"isComputeIsolationEnabled": false,
+		"sessionLevelPackagesEnabled": false,
 		"annotations": []
 	}
 }
