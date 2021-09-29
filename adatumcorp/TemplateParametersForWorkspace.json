@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "adatumcorp"
+		},
+		"AdatumML_servicePrincipalKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"RealtimeDatabase_connectionString": {
+			"value": ""
+		},
+		"adatumcorp-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"AdatumML_properties_typeProperties_subscriptionId": {
+			"value": "84250dee-75c1-4b9d-99c7-ec9f76781510"
+		},
+		"AdatumML_properties_typeProperties_resourceGroupName": {
+			"value": "Adatum"
+		},
+		"AdatumML_properties_typeProperties_servicePrincipalId": {
+			"value": "0f5854c7-b143-4bec-a4d3-48c0d691d822"
+		},
+		"AdatumML_properties_typeProperties_tenant": {
+			"value": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+		},
+		"AzureDataLakeStorage_properties_typeProperties_url": {
+			"value": "https://adatumstoragespace.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://azuresynapsesa.dfs.core.windows.net"
+		},
+		"NGKeyvault_properties_typeProperties_baseUrl": {
+			"value": "https://nellies-keyvault.vault.azure.net/"
+		},
+		"adatumcorp-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://adatumdatalakestorage.dfs.core.windows.net"
+		},
+		"us-decennial-census-zip_sasUri": {
+			"value": ""
+		}
+	}
+}
