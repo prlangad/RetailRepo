@@ -1,0 +1,16 @@
+{
+	"name": "Synapse Link Transactions",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP 100 * \nFROM OPENROWSET('CosmosDB',\n                'Account=adatum-cosmos-db;Database=RealtimeDatabase;Key=mM2LeesNpdo0erEtgsa2XMTexDEGdziB4MWy9mnPWOxoa8F7fGP5mP5wrt2HeMHjuMA8fe34yqYeQ6C2Gdk35Q==',\n                transactions) AS transactions",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "master",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

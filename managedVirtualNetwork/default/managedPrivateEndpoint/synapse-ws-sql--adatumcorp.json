@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sql--adatumcorp",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/84250dee-75c1-4b9d-99c7-ec9f76781510/resourceGroups/Adatum/providers/Microsoft.Synapse/workspaces/adatumcorp",
+		"groupId": "sql",
+		"fqdns": [
+			"adatumcorp.sql.azuresynapse.net"
+		]
+	}
+}

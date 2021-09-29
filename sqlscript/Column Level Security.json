@@ -1,0 +1,17 @@
+{
+	"name": "Column Level Security",
+	"properties": {
+		"content": {
+			"query": "--Select from table Membership as user Sarah who has no permissions\nExecute as User='Sarah'\nSelect * from Membership\nREVERT\n\n--Grant user Sarah to permissions to access data in specific columns\n\nGRANT SELECT ON Membership (MemberID, FirstName, LastName) TO Sarah\n\n--Select * from table Membership as user Sarah who has access to view data in specific columns\nExecute as User='Sarah'\nSelect * from Membership\nREVERT\n\n--Select columns from table Membership to which user Sarah has access \nExecute as User='Sarah'\nSelect MemberID, FirstName, LastName from Membership\nREVERT\n\n--Revoke user Sarah's permissions to access data in specific columns\nREVOKE SELECT ON Membership (MemberID, FirstName, LastName) TO Sarah",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "dedicatedSQL",
+				"poolName": "dedicatedSQL"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

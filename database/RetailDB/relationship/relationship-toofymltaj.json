@@ -1,0 +1,28 @@
+{
+	"name": "relationship-toofymltaj",
+	"properties": {
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "RetailProduct",
+		"ToTableName": "TransactionLineItem",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "ProductId",
+				"ToColumnName": "ProductId"
+			}
+		],
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"RetailProduct.cdm.json/RetailProduct\",\"toEntity\":\"TransactionLineItem.cdm.json/TransactionLineItem\",\"joinPairs\":[{\"fromAttribute\":\"ProductId\",\"toAttribute\":\"ProductId\"}]}}"
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "4600ecb6-b32b-4be9-b0f4-851b4389bac7",
+		"Name": "relationship-toofymltaj",
+		"EntityType": "RELATIONSHIP"
+	},
+	"type": "RELATIONSHIP"
+}

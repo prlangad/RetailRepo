@@ -1,0 +1,28 @@
+{
+	"name": "relationship-ocxymugbrb",
+	"properties": {
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Transaction",
+		"ToTableName": "TransactionLineItem",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "TransactionId",
+				"ToColumnName": "ReturnOfTransactionId"
+			}
+		],
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"Transaction.cdm.json/Transaction\",\"toEntity\":\"TransactionLineItem.cdm.json/TransactionLineItem\",\"joinPairs\":[{\"fromAttribute\":\"TransactionId\",\"toAttribute\":\"ReturnOfTransactionId\"}]}}"
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "058a72c0-9224-436d-af24-0e300f2c64f3",
+		"Name": "relationship-ocxymugbrb",
+		"EntityType": "RELATIONSHIP"
+	},
+	"type": "RELATIONSHIP"
+}

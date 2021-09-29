@@ -1,0 +1,16 @@
+{
+	"name": "SQL script 3",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\nSELECT\n    Country_region AS Region, AVG(Confirmed_change) AS AverageDailyConfirmedCases, AVG(Deaths_change) AS AverageDailyDeaths\nFROM\n    OPENROWSET(\n        BULK     'https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/bing_covid-19_data/latest/bing_covid-19_data.parquet.',\n        FORMAT = 'parquet'\n    ) AS [result] GROUP BY Country_region;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

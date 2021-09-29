@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 9",
+	"properties": {
+		"content": {
+			"query": "CREATE USER [Sarah]\n\tWITHOUT LOGIN\n\tWITH DEFAULT_SCHEMA = dbo\n\nGO\n\nGRANT Select TO [Sarah]\n\nCREATE TABLE Membership(\n    MemberID        int IDENTITY(1,1) ,\n    FirstName        varchar(100) MASKED WITH (FUNCTION = 'partial(1, \"xxxxx\", 1)') NULL,\n    LastName        varchar(100) NOT NULL,\n    Phone            varchar(12) MASKED WITH (FUNCTION = 'default()') NULL,\n    Email            varchar(100) MASKED WITH (FUNCTION = 'email()') NOT NULL,\n    DiscountCode    smallint MASKED WITH (FUNCTION = 'random(1, 100)') NULL\n    );\n\n-- inserting sample data\nINSERT INTO Membership (FirstName, LastName, Phone, Email, DiscountCode)\nVALUES\n('Zheng','Mu','555.123.4569','ZMu@contoso.net',40)\n\nExecute as User='Joe'\nSelect * from Membership\nREVERT\n\nSELECT tbl.name as table_name, c.name AS column_name, c.is_masked, c.masking_function  \nFROM sys.masked_columns AS c  \nJOIN sys.tables AS tbl   \n    ON c.object_id = tbl.object_id  \nWHERE is_masked = 1;\n\n-- Data masking on all columns in table Membership\nALTER TABLE Membership\nALTER COLUMN Email DROP MASKED\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "dedicatedSQL",
+				"poolName": "dedicatedSQL"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,32 @@
+{
+	"name": "relationship-vtjdnwphyx",
+	"properties": {
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "TransactionLineItem",
+		"ToTableName": "TransactionLineItem",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "TransactionId",
+				"ToColumnName": "ReturnOfTransactionId"
+			},
+			{
+				"FromColumnName": "TransactionLineItemId",
+				"ToColumnName": "ReturnOfTransactionLineItemId"
+			}
+		],
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"TransactionLineItem.cdm.json/TransactionLineItem\",\"toEntity\":\"TransactionLineItem.cdm.json/TransactionLineItem\",\"joinPairs\":[{\"fromAttribute\":\"TransactionId\",\"toAttribute\":\"ReturnOfTransactionId\"},{\"fromAttribute\":\"TransactionLineItemId\",\"toAttribute\":\"ReturnOfTransactionLineItemId\"}]}}"
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "05643bdc-8a65-4b6b-bfce-85f9f9336e81",
+		"Name": "relationship-vtjdnwphyx",
+		"EntityType": "RELATIONSHIP"
+	},
+	"type": "RELATIONSHIP"
+}

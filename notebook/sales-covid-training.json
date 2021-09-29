@@ -1,0 +1,379 @@
+{
+	"name": "sales-covid-training",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "ProductAnalysis",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/84250dee-75c1-4b9d-99c7-ec9f76781510/resourceGroups/Adatum/providers/Microsoft.Synapse/workspaces/adatumcorp/bigDataPools/ProductAnalysis",
+				"name": "ProductAnalysis",
+				"type": "Spark",
+				"endpoint": "https://adatumcorp.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ProductAnalysis",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 8,
+				"memory": 56
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"import os\r\n",
+					"\r\n",
+					"project_folder = './scripts'\r\n",
+					"\r\n",
+					"# Working directory\r\n",
+					"if not os.path.exists(project_folder):\r\n",
+					"    os.makedirs(project_folder)"
+				],
+				"attachments": null,
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"import azureml.core\r\n",
+					"\r\n",
+					"azureml.core.VERSION"
+				],
+				"attachments": null,
+				"execution_count": 2
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# Connect to Workspace\r\n",
+					"\r\n",
+					"In the next cell, we create a new Workspace config object using the `<subscription_id>`, `<resource_group_name>`, and `<workspace_name>`. This will fetch the matching Workspace and prompt you for authentication. Please click on the link and input the provided details.\r\n",
+					"\r\n",
+					"For more information on **Workspace**, please visit: [Microsoft Workspace Documentation](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.core.workspace.workspace?view=azure-ml-py)\r\n",
+					"\r\n",
+					"`<subscription_id>` = You can get this ID from the landing page of your Resource Group.\r\n",
+					"\r\n",
+					"`<resource_group_name>` = This is the name of your Resource Group.\r\n",
+					"\r\n",
+					"`<workspace_name>` = This is the name of your Workspace."
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from azureml.core.workspace import Workspace\r\n",
+					"from azureml.core.authentication import InteractiveLoginAuthentication\r\n",
+					"\r\n",
+					"try:    \r\n",
+					"    # Get instance of the Workspace and write it to config file\r\n",
+					"    ws = Workspace(\r\n",
+					"        subscription_id = '84250dee-75c1-4b9d-99c7-ec9f76781510', \r\n",
+					"        resource_group = 'adatum', \r\n",
+					"        workspace_name = 'adatum-ml')\r\n",
+					"\r\n",
+					"    # Writes workspace config file\r\n",
+					"    ws.write_config()\r\n",
+					"    \r\n",
+					"    print('Library configuration succeeded')\r\n",
+					"except Exception as e:\r\n",
+					"    print(e)\r\n",
+					"    print('Workspace not found')"
+				],
+				"attachments": null,
+				"execution_count": 3
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# Load Dataset"
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from azureml.core import Dataset, Datastore\r\n",
+					"\r\n",
+					"tabular = Dataset.get_by_name(ws, 'SalesCovidSupervised')\r\n",
+					"\r\n",
+					"data = tabular.to_pandas_dataframe()\r\n",
+					"tabular.take(3).to_pandas_dataframe()"
+				],
+				"attachments": null,
+				"execution_count": 4
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# Create AML Compute Cluster\r\n",
+					"\r\n",
+					"Firstly, check for the existence of the cluster. If it already exists, we are able to reuse it. Checking for the existence of the cluster can be performed by calling the constructor `ComputeTarget()` with the current workspace and name of the cluster.\r\n",
+					"\r\n",
+					"In case the cluster does not exist, the next step will be to provide a configuration for the new AML cluster by calling the function `AmlCompute.provisioning_configuration()`. It takes as parameters the VM size and the max number of nodes that the cluster can scale up to. After the configuration has executed, `ComputeTarget.create()` should be called with the previously configuration object and the workspace object.\r\n",
+					"\r\n",
+					"For more information on **ComputeTarget**, please visit: [Microsoft ComputeTarget Documentation](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.core.compute.computetarget?view=azure-ml-py)\r\n",
+					"\r\n",
+					"For more information on **AmlCompute**, please visit: [Microsoft AmlCompute Documentation](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.core.compute.akscompute?view=azure-ml-py)\r\n",
+					"\r\n",
+					"\r\n",
+					"**Note:** Please wait for the execution of the cell to finish before moving forward."
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from azureml.core.compute import ComputeTarget, AmlCompute\r\n",
+					"from azureml.core.compute_target import ComputeTargetException\r\n",
+					"\r\n",
+					"### Create AML CPU Compute Cluster\r\n",
+					"\r\n",
+					"try:\r\n",
+					"    compute_target = ComputeTarget(workspace=ws, name='cpucluster')\r\n",
+					"    print('Found existing compute target.')\r\n",
+					"except ComputeTargetException:\r\n",
+					"    print('Creating a new compute target...')\r\n",
+					"    compute_config = AmlCompute.provisioning_configuration(vm_size='Standard_DS12_v2',\r\n",
+					"                                                           max_nodes=4)\r\n",
+					"\r\n",
+					"    # create the cluster\r\n",
+					"    compute_target = ComputeTarget.create(ws, 'cpucluster', compute_config)\r\n",
+					"\r\n",
+					"    compute_target.wait_for_completion(show_output=True)"
+				],
+				"attachments": null,
+				"execution_count": 5
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from azureml.train.automl import AutoMLConfig\r\n",
+					"\r\n",
+					"automl_config = AutoMLConfig(task = 'regression',\r\n",
+					"                             iterations = 25,\r\n",
+					"                             iteration_timeout_minutes = 30, \r\n",
+					"                             max_cores_per_iteration = 10,\r\n",
+					"                             primary_metric = 'spearman_correlation',\r\n",
+					"                             debug_log = 'automl.log',\r\n",
+					"                             training_data = tabular,\r\n",
+					"                             label_column_name = 'sales',\r\n",
+					"                             compute_target = compute_target,\r\n",
+					"                             path = project_folder,\r\n",
+					"                             model_explainability = True,\r\n",
+					"                             enable_onnx_compatible_models=True)"
+				],
+				"attachments": null,
+				"execution_count": 7
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from azureml.core.experiment import Experiment\r\n",
+					"\r\n",
+					"# Get an instance of the Workspace from the config file\r\n",
+					"ws = Workspace.from_config()\r\n",
+					"\r\n",
+					"# Create Experiment\r\n",
+					"experiment = Experiment(ws, 'sales-covid-exp')\r\n",
+					"\r\n",
+					"remote_run = experiment.submit(automl_config, show_output=False)\r\n",
+					"remote_run.wait_for_completion(show_output=True)"
+				],
+				"attachments": null,
+				"execution_count": 8
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"best_run, onnx_mdl = remote_run.get_output(return_onnx_model=True)"
+				],
+				"attachments": null,
+				"execution_count": 10
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from azureml.automl.runtime.onnx_convert import OnnxConverter\r\n",
+					"\r\n",
+					"onnx_fl_path = \"./best_model.onnx\"\r\n",
+					"OnnxConverter.save_onnx_model(onnx_mdl, onnx_fl_path)"
+				],
+				"attachments": null,
+				"execution_count": 11
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from azureml.core.model import Model\r\n",
+					"\r\n",
+					"# register the model for deployment\r\n",
+					"onnx_model = Model.register(workspace = ws,\r\n",
+					"                            model_name='sales-forecast-model', \r\n",
+					"                            model_path=onnx_fl_path,\r\n",
+					"                            model_framework=Model.Framework.ONNX,\r\n",
+					"                            description='Sales forecast enriched with Covid rates',\r\n",
+					"                            tags={'area': 'sales', 'type': 'regression'})\r\n",
+					"\r\n",
+					"print(\"Model name: \" + onnx_model.name, \"Model version: \" + str(onnx_model.version), sep=\"\\n\")"
+				],
+				"attachments": null,
+				"execution_count": 14
+			}
+		]
+	}
+}

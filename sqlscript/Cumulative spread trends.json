@@ -1,0 +1,16 @@
+{
+	"name": "Cumulative spread trends",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    CAST(Updated AS DATE) AS 'Date', SUM(Confirmed) AS 'Confirmed', SUM(Deaths) AS 'Deaths', SUM(Recovered) AS Recovered, SUM(Confirmed - Recovered - Deaths) AS 'Active'\nFROM\n    OPENROWSET(\n        BULK     'https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/bing_covid-19_data/latest/bing_covid-19_data.parquet',\n        FORMAT = 'parquet'\n    ) AS [result]\nWHERE Country_region = 'Costa Rica' AND Admin_region_1 IS NULL AND Confirmed_Change IS NOT NULL\nGROUP BY Updated\nORDER BY Updated;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "master",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

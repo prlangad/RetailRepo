@@ -1,0 +1,26 @@
+{
+	"name": "RetailDB",
+	"properties": {
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true,
+			"DerivedModelDBInfo": "{\"ModelDirectives\":{\"BaseModel\":{\"Name\":\"Retail\",\"Version\":\"0.1.0\"}}}"
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://analytics@adatumdatalakestorage.dfs.core.windows.net/RetailDB",
+			"Properties": {
+				"FormatType": "csv",
+				"LinkedServiceName": "adatumcorp-WorkspaceDefaultStorage"
+			}
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 2,
+		"ObjectId": "fa46a3ba-c571-4461-8e6d-dc42ef7c81ef",
+		"Name": "RetailDB",
+		"EntityType": "DATABASE"
+	},
+	"type": "DATABASE"
+}

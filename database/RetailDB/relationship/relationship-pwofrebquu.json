@@ -1,0 +1,28 @@
+{
+	"name": "relationship-pwofrebquu",
+	"properties": {
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Transaction",
+		"ToTableName": "Order",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "TransactionId",
+				"ToColumnName": "OrderId"
+			}
+		],
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"Transaction.cdm.json/Transaction\",\"toEntity\":\"Order.cdm.json/Order\",\"joinPairs\":[{\"fromAttribute\":\"TransactionId\",\"toAttribute\":\"OrderId\"}]}}"
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "65b2cd6a-9648-442a-9d25-13fd8e737a97",
+		"Name": "relationship-pwofrebquu",
+		"EntityType": "RELATIONSHIP"
+	},
+	"type": "RELATIONSHIP"
+}

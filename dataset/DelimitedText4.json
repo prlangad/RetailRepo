@@ -1,0 +1,48 @@
+{
+	"name": "DelimitedText4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "staging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "BUFFALO",
+				"type": "String"
+			},
+			{
+				"name": "NY",
+				"type": "String"
+			},
+			{
+				"name": "2017",
+				"type": "String"
+			},
+			{
+				"name": "59570",
+				"type": "String"
+			},
+			{
+				"name": "BUFFALO, NY",
+				"type": "String"
+			},
+			{
+				"name": "45",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,28 @@
+{
+	"name": "relationship-ffgnhpxqwn",
+	"properties": {
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Transaction",
+		"ToTableName": "TransactionLineItem",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "TransactionId",
+				"ToColumnName": "TransactionId"
+			}
+		],
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"Transaction.cdm.json/Transaction\",\"toEntity\":\"TransactionLineItem.cdm.json/TransactionLineItem\",\"joinPairs\":[{\"fromAttribute\":\"TransactionId\",\"toAttribute\":\"TransactionId\"}]}}"
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "7c227bdd-8c44-4ee2-9457-0650149062a6",
+		"Name": "relationship-ffgnhpxqwn",
+		"EntityType": "RELATIONSHIP"
+	},
+	"type": "RELATIONSHIP"
+}

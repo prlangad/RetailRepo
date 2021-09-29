@@ -1,0 +1,16 @@
+{
+	"name": "spForecastProductAnalytics",
+	"properties": {
+		"content": {
+			"query": "CREATE PROCEDURE [dbo].[spForecastProductAnalytics]\nAS\nBEGIN\n\nSELECT\n    [date],\n    CAST([ProductCode] AS [bigint]) AS [item],\n    CAST([StoreState] AS [varchar]) AS [admin_region_1],\n    CAST([StoreName] AS [varchar]) AS [admin_region_2],\n    CAST([confirmed_change] AS [real]) AS [confirmed_change],\n    CAST([cases_per_million] AS [real]) AS [cases_per_million],\n    CAST([lag_1] AS [real]) AS [lag_1],\n    CAST([lag_2] AS [real]) AS [lag_2],\n    CAST([lag_3] AS [real]) AS [lag_3],\n    CAST([lag_4] AS [real]) AS [lag_4]\nINTO [dbo].[#ProductSalesAnalyticsView]\nFROM [dbo].[ProductSalesAnalyticsView];\n\nSELECT *\nFROM PREDICT (MODEL = (SELECT [model] FROM dbo.aml_models WHERE [ID] = 'sales-forecast-model:2'),\n              DATA = [dbo].[#ProductSalesAnalyticsView]) WITH ([variable1] [real])\n\nEND\nGO\n\nEXEC [dbo].[spForecastProductAnalytics]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "ProductAnalysis",
+				"type": "SqlPool"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

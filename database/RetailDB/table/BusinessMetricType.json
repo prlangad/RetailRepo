@@ -1,0 +1,134 @@
+{
+	"name": "BusinessMetricType",
+	"properties": {
+		"TableType": "EXTERNAL",
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "RetailDB"
+		},
+		"StorageDescriptor": {
+			"Distribution": null,
+			"Columns": [
+				{
+					"Name": "BusinessMetricTypeId",
+					"Description": "The unique identifier of a Business Metric Type.",
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetricType.cdm.json/BusinessMetricType",
+						"Name": "BusinessMetricTypeId"
+					}
+				},
+				{
+					"Name": "BusinessMetricTypeName",
+					"Description": "The name of a Business Metric Type.",
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 128,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetricType.cdm.json/BusinessMetricType",
+						"Name": "BusinessMetricTypeName"
+					}
+				},
+				{
+					"Name": "BusinessMetricTypeDescription",
+					"Description": "The description of a Business Metric Type.",
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 512,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetricType.cdm.json/BusinessMetricType",
+						"Name": "BusinessMetricTypeDescription"
+					}
+				}
+			],
+			"ColumnSetEntityName": "47317a15-edd8-4c7f-8257-08990b385752",
+			"Format": {
+				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+				"FormatType": "csv",
+				"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+				"Properties": {
+					"path": "abfss://analytics@adatumdatalakestorage.dfs.core.windows.net/RetailDB/BusinessMetricType",
+					"delimiter": ",",
+					"firstRowAsHeader": "false",
+					"multiLine": "false",
+					"serialization.format": "1",
+					"escape": "\\",
+					"FormatTypeSetToDatabaseDefault": true,
+					"header": "false"
+				}
+			},
+			"Source": {
+				"Provider": "ADLS",
+				"Location": "abfss://analytics@adatumdatalakestorage.dfs.core.windows.net/RetailDB/BusinessMetricType",
+				"Properties": {
+					"LinkedServiceName": "adatumcorp-WorkspaceDefaultStorage",
+					"LocationSetToDatabaseDefault": true
+				}
+			},
+			"Properties": {
+				"textinputformat.record.delimiter": ",",
+				"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{\"BusinessMetricTypeId\":{\"entity\":\"BusinessMetricType.cdm.json/BusinessMetricType\",\"name\":\"BusinessMetricTypeId\"},\"BusinessMetricTypeName\":{\"entity\":\"BusinessMetricType.cdm.json/BusinessMetricType\",\"name\":\"BusinessMetricTypeName\"},\"BusinessMetricTypeDescription\":{\"entity\":\"BusinessMetricType.cdm.json/BusinessMetricType\",\"name\":\"BusinessMetricTypeDescription\"}}}"
+			},
+			"Compressed": false,
+			"SerDeInfo": null,
+			"IsStoredAsSubdirectories": false
+		},
+		"Owner": null,
+		"CreateTime": 0,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
+		"Properties": {
+			"DerivedModelEntityInfo": "{\"entityDirectives\":{\"baseEntityReference\":{\"name\":\"BusinessMetricType\",\"path\":\"BusinessMetricType.cdm.json/BusinessMetricType\"},\"description\":\"Business ratios are categorized into 6 categories:\\n\\n- Sales Ratios\\n- Profit Ratios\\n- Debt & Capital Ratios\\n- Efficiency Ratios\\n- Marketing Ratios\\n- Investment Ratios\",\"primaryKey\":[\"BusinessMetricTypeId\"],\"projectionInfo\":{\"attributes\":[{\"type\":\"Existing\",\"name\":\"BusinessMetricTypeId\",\"attributeReference\":{\"entity\":\"BusinessMetricType.cdm.json/BusinessMetricType\",\"name\":\"BusinessMetricTypeId\"},\"dataType\":\"integer\"},{\"type\":\"Existing\",\"name\":\"BusinessMetricTypeName\",\"attributeReference\":{\"entity\":\"BusinessMetricType.cdm.json/BusinessMetricType\",\"name\":\"BusinessMetricTypeName\"},\"dataType\":\"string\",\"dataTypeLength\":128},{\"type\":\"Existing\",\"name\":\"BusinessMetricTypeDescription\",\"attributeReference\":{\"entity\":\"BusinessMetricType.cdm.json/BusinessMetricType\",\"name\":\"BusinessMetricTypeDescription\"},\"dataType\":\"string\",\"dataTypeLength\":512}]}}}",
+			"Description": "Business ratios are categorized into 6 categories:\n\n- Sales Ratios\n- Profit Ratios\n- Debt & Capital Ratios\n- Efficiency Ratios\n- Marketing Ratios\n- Investment Ratios",
+			"DisplayFolderInfo": "{\"name\":\"Business Metrics\",\"colorCode\":\"#00A2AD\"}",
+			"PrimaryKeys": "BusinessMetricTypeId",
+			"spark.sql.sources.provider": "csv",
+			"spark.sql.sources.schema.numParts": "1",
+			"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"BusinessMetricTypeId\",\"type\":\"integer\",\"nullable\":false,\"metadata\":{}},{\"name\":\"BusinessMetricTypeName\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"BusinessMetricTypeDescription\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
+		},
+		"ObjectVersion": 1,
+		"ObjectId": "1a5e5af8-a876-438f-b279-74a2cb6c64ac",
+		"Name": "BusinessMetricType",
+		"Description": "Business ratios are categorized into 6 categories:\n\n- Sales Ratios\n- Profit Ratios\n- Debt & Capital Ratios\n- Efficiency Ratios\n- Marketing Ratios\n- Investment Ratios",
+		"EntityType": "TABLE"
+	},
+	"type": "TABLE"
+}

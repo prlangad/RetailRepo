@@ -1,0 +1,16 @@
+{
+	"name": "Store Manager",
+	"properties": {
+		"content": {
+			"query": "EXECUTE AS USER = 'Joe';  \nSELECT [UserId]\n    ,[FullName]\n    ,[PreferredStoreLocation]\n    ,[Phone]\n    ,[Email]\n    ,[Encrypted_CreditCard]\n    ,[ZipCode]\n    ,[Country]\n    ,[EnrollmentDate]\n    ,[State]\n    ,[UserAgent]\nFROM Customers\nREVERT;  ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "ProductAnalysis",
+				"type": "SqlPool"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

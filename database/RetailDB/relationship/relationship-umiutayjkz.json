@@ -1,0 +1,28 @@
+{
+	"name": "relationship-umiutayjkz",
+	"properties": {
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "ProductType",
+		"ToTableName": "RetailProduct",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "ProductTypeId",
+				"ToColumnName": "ProductTypeId"
+			}
+		],
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"ProductType.cdm.json/ProductType\",\"toEntity\":\"RetailProduct.cdm.json/RetailProduct\",\"joinPairs\":[{\"fromAttribute\":\"ProductTypeId\",\"toAttribute\":\"ProductTypeId\"}]}}"
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "ef99907c-3183-418f-8e5d-a3005616a336",
+		"Name": "relationship-umiutayjkz",
+		"EntityType": "RELATIONSHIP"
+	},
+	"type": "RELATIONSHIP"
+}

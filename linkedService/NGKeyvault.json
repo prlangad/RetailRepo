@@ -1,0 +1,11 @@
+{
+	"name": "NGKeyvault",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://nellies-keyvault.vault.azure.net/"
+		}
+	}
+}

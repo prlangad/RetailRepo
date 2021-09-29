@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-kusto-9b0cefe1f4-v2",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/84250dee-75c1-4b9d-99c7-ec9f76781510/resourceGroups/Adatum/providers/Microsoft.Synapse/workspaces/adatumcorp",
+		"groupId": "kusto",
+		"fqdns": [
+			"g8nrldloganalyticspool01.table.core.windows.net"
+		]
+	}
+}

@@ -1,0 +1,52 @@
+{
+	"name": "Dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText4",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Select1"
+				},
+				{
+					"name": "Join1"
+				},
+				{
+					"name": "Select2"
+				}
+			],
+			"script": "source(output(\n\t\t{Customer Key} as string,\n\t\t{WWI Customer ID} as string,\n\t\tCustomer as string,\n\t\t{Bill To Customer} as string,\n\t\tCategory as string,\n\t\t{Buying Group} as string,\n\t\t{Primary Contact} as string,\n\t\t{Postal Code} as string,\n\t\t{Valid From} as string,\n\t\t{Valid To} as string,\n\t\t{Lineage Key} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource(output(\n\t\t{Sale Key} as string,\n\t\t{City Key} as string,\n\t\t{Customer Key} as string,\n\t\t{Bill To Customer Key} as string,\n\t\t{Stock Item Key} as string,\n\t\t{Invoice Date Key} as string,\n\t\t{Delivery Date Key} as string,\n\t\t{Salesperson Key} as string,\n\t\t{WWI Invoice ID} as string,\n\t\tDescription as string,\n\t\tPackage as string,\n\t\tQuantity as string,\n\t\t{Unit Price} as string,\n\t\t{Tax Rate} as string,\n\t\t{Total Excluding Tax} as string,\n\t\t{Tax Amount} as string,\n\t\tProfit as string,\n\t\t{Total Including Tax} as string,\n\t\t{Total Dry Items} as string,\n\t\t{Total Chiller Items} as string,\n\t\t{Lineage Key} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source2\nsource1 select(mapColumn(\n\t\t{Customer Key},\n\t\t{WWI Customer ID},\n\t\tCustomer,\n\t\t{Bill To Customer},\n\t\tCategory,\n\t\t{Buying Group},\n\t\t{Primary Contact},\n\t\t{Postal Code},\n\t\t{Valid From},\n\t\t{Valid To},\n\t\t{Lineage Key}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1, source2 join(Select1@{Customer Key} == source2@{Customer Key},\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1\nsource2 select(mapColumn(\n\t\t{Sale Key},\n\t\t{City Key},\n\t\t{Customer Key},\n\t\t{Bill To Customer Key},\n\t\t{Stock Item Key},\n\t\t{Invoice Date Key},\n\t\t{Delivery Date Key},\n\t\t{Salesperson Key},\n\t\t{WWI Invoice ID},\n\t\tDescription,\n\t\tPackage,\n\t\tQuantity,\n\t\t{Unit Price},\n\t\t{Tax Rate},\n\t\t{Total Excluding Tax},\n\t\t{Tax Amount},\n\t\tProfit,\n\t\t{Total Including Tax},\n\t\t{Total Dry Items},\n\t\t{Total Chiller Items},\n\t\t{Lineage Key}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select2\nJoin1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tBUFFALO as string,\n\t\tNY as string,\n\t\t{2017} as string,\n\t\t{59570} as string,\n\t\t{BUFFALO, NY} as string,\n\t\t{45} as string\n\t),\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1\nSelect2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tBUFFALO as string,\n\t\tNY as string,\n\t\t{2017} as string,\n\t\t{59570} as string,\n\t\t{BUFFALO, NY} as string,\n\t\t{45} as string\n\t),\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink2"
+		}
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"name": "relationship-wpzeiuhdkz",
+	"properties": {
+		"Namespace": {
+			"DatabaseName": "RetailDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "BusinessMetricType",
+		"ToTableName": "BusinessMetric",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "BusinessMetricTypeId",
+				"ToColumnName": "BusinessMetricTypeId"
+			}
+		],
+		"Properties": {
+			"DerivedModelRelationshipInfo": "{\"baseRelationship\":{\"fromEntity\":\"BusinessMetricType.cdm.json/BusinessMetricType\",\"toEntity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"joinPairs\":[{\"fromAttribute\":\"BusinessMetricTypeId\",\"toAttribute\":\"BusinessMetricTypeId\"}]}}"
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "97c68123-3218-4fe6-b92a-31f182cc04aa",
+		"Name": "relationship-wpzeiuhdkz",
+		"EntityType": "RELATIONSHIP"
+	},
+	"type": "RELATIONSHIP"
+}

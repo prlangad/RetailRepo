@@ -1,0 +1,17 @@
+{
+	"name": "Dynamic Data Masking",
+	"properties": {
+		"content": {
+			"query": "-- View table columns with dynamic data masking functions applied to them. View only shows the columns on which there is a masking function applied.\nSELECT tbl.name as table_name, c.name AS column_name, c.is_masked, c.masking_function  \nFROM sys.masked_columns AS c  \nJOIN sys.tables AS tbl   \n    ON c.object_id = tbl.object_id  \nWHERE is_masked = 1;\n\n\n--Select data from masked columns as user without UNMASK Permissions\nExecute as User='Joe'\nSelect * from Membership\nREVERT\n\n--GRANT user Joe UNMASK permissions on table Membership with Granular DDM permissions\nGRANT UNMASK on dbo.Membership to Joe\n\n--Select data from masked columns in table Membership as Joe\nExecute as User='Joe'\nSelect * from Membership\nREVERT\n\n--GRANT user Sarah  UNMASK permissions on column Email with Granular DDM permissions\nGRANT UNMASK on dbo.Membership(Email) to Sarah\n\n--Select data from masked columns in table Membership as Sarah\nExecute as User='Sarah'\nSelect * from Membership\nREVERT\n\n--Revoke UNMASK permissions on table\nREVOKE UNMASK on dbo.Membership TO Joe\n\n--Select data from masked columns after UNMASK permissions revocation\nExecute as User='Joe'\nSelect * from Membership\nREVERT",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "dedicatedSQL",
+				"poolName": "dedicatedSQL"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

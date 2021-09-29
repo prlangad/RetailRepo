@@ -1,0 +1,166 @@
+{
+	"name": "PostalCodes",
+	"properties": {
+		"TableType": "EXTERNAL",
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "RetailDB"
+		},
+		"StorageDescriptor": {
+			"Distribution": null,
+			"Columns": [
+				{
+					"Name": "City",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 8000,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					}
+				},
+				{
+					"Name": "State",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 8000,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					}
+				},
+				{
+					"Name": "Zip",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "long",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "long"
+						}
+					}
+				},
+				{
+					"Name": "Latitude",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "float",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "float"
+						}
+					}
+				},
+				{
+					"Name": "Longitude",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "float",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "float"
+						}
+					}
+				},
+				{
+					"Name": "Timezone",
+					"Description": null,
+					"OriginDataTypeName": {
+						"TypeName": "long",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "long"
+						}
+					}
+				}
+			],
+			"ColumnSetEntityName": "66601686-aad5-4e13-91b1-fceb0d368d0a",
+			"Format": {
+				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+				"FormatType": "csv",
+				"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+				"Properties": {
+					"path": "abfss://rawdata@azuresynapsesa.dfs.core.windows.net/WWI/postalcodes.csv",
+					"delimiter": ",",
+					"firstRowAsHeader": "true",
+					"multiLine": "false",
+					"serialization.format": "1",
+					"escape": "\\",
+					"FormatTypeSetToDatabaseDefault": false,
+					"header": "true"
+				}
+			},
+			"Source": {
+				"Provider": "ADLS",
+				"Location": "abfss://rawdata@azuresynapsesa.dfs.core.windows.net/WWI/postalcodes.csv",
+				"Properties": {
+					"LinkedServiceName": "AzureDataLakeStorage1",
+					"LocationSetToDatabaseDefault": false
+				}
+			},
+			"Properties": {
+				"textinputformat.record.delimiter": ",",
+				"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+			},
+			"Compressed": false,
+			"SerDeInfo": null,
+			"IsStoredAsSubdirectories": false
+		},
+		"Owner": null,
+		"CreateTime": 0,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
+		"Properties": {
+			"Description": "",
+			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+			"PrimaryKeys": "",
+			"spark.sql.sources.provider": "csv",
+			"spark.sql.sources.schema.numParts": "1",
+			"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"City\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"State\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"Zip\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}},{\"name\":\"Latitude\",\"type\":\"float\",\"nullable\":true,\"metadata\":{}},{\"name\":\"Longitude\",\"type\":\"float\",\"nullable\":true,\"metadata\":{}},{\"name\":\"Timezone\",\"type\":\"long\",\"nullable\":true,\"metadata\":{}}]}"
+		},
+		"ObjectVersion": 1,
+		"ObjectId": "4901dd15-a58e-406a-aebb-c5620463511d",
+		"Name": "PostalCodes",
+		"Description": "",
+		"EntityType": "TABLE"
+	},
+	"type": "TABLE"
+}

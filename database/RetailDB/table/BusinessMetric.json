@@ -1,0 +1,191 @@
+{
+	"name": "BusinessMetric",
+	"properties": {
+		"TableType": "EXTERNAL",
+		"Namespace": {
+			"SchemaName": null,
+			"DatabaseName": "RetailDB"
+		},
+		"StorageDescriptor": {
+			"Distribution": null,
+			"Columns": [
+				{
+					"Name": "BusinessMetricId",
+					"Description": "The unique identifier of a business metric.",
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": false,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetric.cdm.json/BusinessMetric",
+						"Name": "BusinessMetricId"
+					}
+				},
+				{
+					"Name": "BusinessMetricName",
+					"Description": "The name of a Business Metric.",
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 128,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetric.cdm.json/BusinessMetric",
+						"Name": "BusinessMetricName"
+					}
+				},
+				{
+					"Name": "BusinessMetricDescription",
+					"Description": "The description of a Business Metric.",
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 512,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetric.cdm.json/BusinessMetric",
+						"Name": "BusinessMetricDescription"
+					}
+				},
+				{
+					"Name": "BusinessMetricAlgorithm",
+					"Description": "The algorithm used to calculate a Business Metric.",
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 1024,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetric.cdm.json/BusinessMetric",
+						"Name": "BusinessMetricAlgorithm"
+					}
+				},
+				{
+					"Name": "BusinessMetricTypeId",
+					"Description": "The unique identifier of a Business Metric Type.",
+					"OriginDataTypeName": {
+						"TypeName": "integer",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 0,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "integer"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetric.cdm.json/BusinessMetric",
+						"Name": "BusinessMetricTypeId"
+					}
+				},
+				{
+					"Name": "KeyPerformanceIndicator",
+					"Description": "Indicates whether the metric is always considered to be a key performance indicator.",
+					"OriginDataTypeName": {
+						"TypeName": "string",
+						"IsComplexType": false,
+						"IsNullable": true,
+						"Length": 1024,
+						"Precision": 0,
+						"Scale": 0,
+						"Properties": {
+							"HIVE_TYPE_STRING": "string"
+						}
+					},
+					"BaseAttributeReference": {
+						"Entity": "BusinessMetric.cdm.json/BusinessMetric",
+						"Name": "KeyPerformanceIndicator"
+					}
+				}
+			],
+			"ColumnSetEntityName": "25aa42dc-3464-4332-bd47-6fb2a3dbbfa5",
+			"Format": {
+				"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+				"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+				"FormatType": "csv",
+				"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+				"Properties": {
+					"path": "abfss://analytics@adatumdatalakestorage.dfs.core.windows.net/RetailDB/BusinessMetric",
+					"delimiter": ",",
+					"firstRowAsHeader": "false",
+					"multiLine": "false",
+					"serialization.format": "1",
+					"escape": "\\",
+					"FormatTypeSetToDatabaseDefault": true,
+					"header": "false"
+				}
+			},
+			"Source": {
+				"Provider": "ADLS",
+				"Location": "abfss://analytics@adatumdatalakestorage.dfs.core.windows.net/RetailDB/BusinessMetric",
+				"Properties": {
+					"LinkedServiceName": "adatumcorp-WorkspaceDefaultStorage",
+					"LocationSetToDatabaseDefault": true
+				}
+			},
+			"Properties": {
+				"textinputformat.record.delimiter": ",",
+				"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+				"derivedModelAttributeInfo": "{\"attributeReferences\":{\"BusinessMetricId\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricId\"},\"BusinessMetricName\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricName\"},\"BusinessMetricDescription\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricDescription\"},\"BusinessMetricAlgorithm\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricAlgorithm\"},\"BusinessMetricTypeId\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricTypeId\"},\"KeyPerformanceIndicator\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"KeyPerformanceIndicator\"}}}"
+			},
+			"Compressed": false,
+			"SerDeInfo": null,
+			"IsStoredAsSubdirectories": false
+		},
+		"Owner": null,
+		"CreateTime": 0,
+		"LastAccessTime": 0,
+		"Retention": 0,
+		"Temporary": false,
+		"IsRewriteEnabled": false,
+		"ViewOriginalText": null,
+		"ViewExpandedText": null,
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"OriginObjectId": null,
+		"IsSharedEntity": false,
+		"PublishStatus": "PUBLISHED",
+		"Properties": {
+			"DerivedModelEntityInfo": "{\"entityDirectives\":{\"baseEntityReference\":{\"name\":\"BusinessMetric\",\"path\":\"BusinessMetric.cdm.json/BusinessMetric\"},\"description\":\"A financial or performance metric or measurement that provides information about the performance or financial status of the organization, corporation or business unit.\",\"primaryKey\":[\"BusinessMetricId\"],\"projectionInfo\":{\"attributes\":[{\"type\":\"Existing\",\"name\":\"BusinessMetricId\",\"attributeReference\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricId\"},\"dataType\":\"integer\"},{\"type\":\"Existing\",\"name\":\"BusinessMetricName\",\"attributeReference\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricName\"},\"dataType\":\"string\",\"dataTypeLength\":128},{\"type\":\"Existing\",\"name\":\"BusinessMetricDescription\",\"attributeReference\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricDescription\"},\"dataType\":\"string\",\"dataTypeLength\":512},{\"type\":\"Existing\",\"name\":\"BusinessMetricAlgorithm\",\"attributeReference\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricAlgorithm\"},\"dataType\":\"string\",\"dataTypeLength\":1024},{\"type\":\"Existing\",\"name\":\"BusinessMetricTypeId\",\"attributeReference\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"BusinessMetricTypeId\"},\"dataType\":\"integer\"},{\"type\":\"Existing\",\"name\":\"KeyPerformanceIndicator\",\"attributeReference\":{\"entity\":\"BusinessMetric.cdm.json/BusinessMetric\",\"name\":\"KeyPerformanceIndicator\"},\"dataType\":\"string\",\"dataTypeLength\":1024}]}}}",
+			"Description": "A financial or performance metric or measurement that provides information about the performance or financial status of the organization, corporation or business unit.",
+			"DisplayFolderInfo": "{\"name\":\"Business Metrics\",\"colorCode\":\"#00A2AD\"}",
+			"PrimaryKeys": "BusinessMetricId",
+			"spark.sql.sources.provider": "csv",
+			"spark.sql.sources.schema.numParts": "1",
+			"spark.sql.sources.schema.part.0": "{\"type\":\"struct\",\"fields\":[{\"name\":\"BusinessMetricId\",\"type\":\"integer\",\"nullable\":false,\"metadata\":{}},{\"name\":\"BusinessMetricName\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"BusinessMetricDescription\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"BusinessMetricAlgorithm\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}},{\"name\":\"BusinessMetricTypeId\",\"type\":\"integer\",\"nullable\":true,\"metadata\":{}},{\"name\":\"KeyPerformanceIndicator\",\"type\":\"string\",\"nullable\":true,\"metadata\":{}}]}"
+		},
+		"ObjectVersion": 1,
+		"ObjectId": "9be200e1-dab0-4d10-a24c-b7583a25f554",
+		"Name": "BusinessMetric",
+		"Description": "A financial or performance metric or measurement that provides information about the performance or financial status of the organization, corporation or business unit.",
+		"EntityType": "TABLE"
+	},
+	"type": "TABLE"
+}

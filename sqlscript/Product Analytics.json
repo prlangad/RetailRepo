@@ -1,0 +1,16 @@
+{
+	"name": "Product Analytics",
+	"properties": {
+		"content": {
+			"query": "WITH ForecastSales \nAS (\n    SELECT\n        Item, Admin_region_1, Admin_region_2, Forecast_sales, DATEPART(WEEK, [Date]) AS 'Week'\n    FROM \n        OPENROWSET(\n            BULK 'https://adatumdatalakestorage.dfs.core.windows.net/analytics/data/forecast_sales.parquet',\n            FORMAT='PARQUET'\n        )\n    AS [result]\n    WHERE YEAR([Date]) = 2020 AND Admin_region_2 IN ('Cook County') AND DATEPART(week, [Date]) > 25 AND Item IN ('Slippers', 'Dress Shoes')\n    GROUP BY Admin_region_1, Admin_region_2, DATEPART(WEEK, [Date]), Item, Forecast_sales\n),\nRealtimeSales\nAS (\n    SELECT \n        Item, Admin_region_1, Admin_region_2, SUM(Sales) AS 'Sales', DATEPART(WEEK, Date) AS 'Week'\n    FROM \n        OPENROWSET(\n            'CosmosDB',\n            'Account=adatum-cosmos-db;Database=RealtimeDatabase;Key=mM2LeesNpdo0erEtgsa2XMTexDEGdziB4MWy9mnPWOxoa8F7fGP5mP5wrt2HeMHjuMA8fe34yqYeQ6C2Gdk35Q==', sales)\n        AS sales\n    WHERE YEAR(Date) = 2020 AND Admin_region_2 IN ('Cook County') AND DATEPART(WEEK, DATE) > 25 AND Item IN ('Slippers', 'Dress Shoes')\n    GROUP BY Admin_region_1, Admin_region_2, DATEPART(WEEK, Date), Item\n),\nCovidSpread\nAS (\n    SELECT\n        Admin_region_1, Admin_region_2, SUM(COALESCE(Confirmed_change,0)) AS 'CovidCases', DATEPART(WEEK, Updated) AS 'Week'\n    FROM\n        OPENROWSET(\n            BULK     'https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/bing_covid-19_data/latest/bing_covid-19_data.parquet',\n            FORMAT = 'parquet'\n        ) AS [result]\n    WHERE Country_region = 'United States' AND Admin_region_1 IN ('Illinois') AND Admin_region_2 IN ('Cook County') AND DATEPART(WEEK, Updated) > 25\n    GROUP BY Admin_region_1, Admin_region_2, DATEPART(WEEK, Updated)\n)\n\nSELECT [Week], CASE WHEN [ChangeOnCovid] < -40 THEN 15 ELSE [ChangeOnCovid] END AS '% Case change', [Dress Shoes] AS '% Dress Shoes change', [Slippers] AS '% Slippers change' FROM   \n(\nSELECT RealtimeSales.Item, RealtimeSales.Week AS 'Week', \n        CONVERT(DECIMAL(7,2),(CONVERT(DECIMAL(7,2),(RealtimeSales.Sales - ForecastSales.Forecast_sales)) / CONVERT(DECIMAL(7,2),ForecastSales.Forecast_sales))) * 100 AS 'ChangeOnSales',\n        CONVERT(DECIMAL(7,2),(CONVERT(DECIMAL(7,2),((LAG(CovidSpread.CovidCases, 1,0) OVER (PARTITION BY RealtimeSales.Item ORDER BY RealtimeSales.Week)) - CovidSpread.CovidCases)) / CONVERT(DECIMAL(7,2),CovidSpread.CovidCases))) * -100 AS 'ChangeOnCovid'\nFROM RealtimeSales\nLEFT JOIN ForecastSales ON RealtimeSales.Admin_region_1 = ForecastSales.Admin_region_1 AND ForecastSales.Week = RealtimeSales.Week AND ForecastSales.Item = RealtimeSales.Item\nLEFT JOIN CovidSpread ON RealtimeSales.Admin_region_1 = CovidSpread.Admin_region_1 AND RealtimeSales.Week = CovidSpread.Week\n) t \nPIVOT(\n    SUM(ChangeOnSales)\n    FOR item IN (\n        [Dress Shoes], \n        [Slippers])\n) AS pivot_table\nWHERE [Week] > 26\nORDER BY [Week];",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "master",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}
